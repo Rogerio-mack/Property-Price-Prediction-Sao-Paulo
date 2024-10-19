@@ -1,4 +1,4 @@
-Arquivo,person,bicycle,car,motorcycle,chair,couch,potted plant,bed,dining table,toilet,tv,laptop,microwave,oven,toaster,sink,refrigerator
+img_index,person,bicycle,car,motorcycle,chair,couch,potted plant,bed,dining table,toilet,tv,laptop,microwave,oven,toaster,sink,refrigerator
 0,0,0,0,0,1,1,0,1,1,1,1,1,1,0,0,1,0
 1,0,0,0,0,1,1,1,1,0,1,1,0,1,1,0,1,1
 2,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,1,1
