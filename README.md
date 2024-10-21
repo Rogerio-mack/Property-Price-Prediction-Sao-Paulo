@@ -17,11 +17,19 @@
   - Log numeric (`price`, `area_util`) 
   - With Log numeric + iteracions
   - All cases are filtered with significant regression coefs.
+
+<br>
+
 - **Best result**
 
 | Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
 |-------------------------|------|------------|-----------|-----------|------|
 | Linear log, inter (all) |	0.63 | 402047.49  | 210913.13	| 127497.35 |**0.22**|
+
+The following interactions were selected and added in the regression model with significant coefficients: 
+
+`area util` $\times$ `quartos`, `area util` $\times$ `quartos`, `area util` $\times$ `categoria casas`, `area util` $\times$ `price`
+
 
 <br>
 <br>
@@ -29,6 +37,9 @@
 
 ## [ML Models Selection](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_select_ML_models.ipynb)
 - Apply and select from different Linear Models (only numeric fields are used for price estimation)
+
+<br>
+
 - **Best results**
 
 | Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
@@ -42,6 +53,8 @@
 ## [RandomForest: numeric features](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric.ipynb)
 - Apply RandomForestRegression, only numeric fields are used for price estimation
 
+<br>
+
 - **Best result**
 
 | Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
@@ -54,6 +67,9 @@
 
 ## [RandomForest: numeric + Yolo](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_yolo.ipynb)
 - Apply RandomForestRegression, numeric fields and Yolo detected objects are used for price estimation
+
+<br>
+
 - **Best result**
 
 | Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
