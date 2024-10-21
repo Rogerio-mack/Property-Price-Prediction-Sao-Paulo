@@ -26,14 +26,16 @@
 |-------------------------|------|------------|-----------|-----------|------|
 | Linear log, inter (all) |	0.63 | 402047.49  | 210913.13	| 127497.35 |**0.22**|
 
-The following interactions were selected and added in the regression model with significant coefficients: 
-
-`area util` $\times$ `quartos`, `area util` $\times$ `quartos`, `area util` $\times$ `categoria casas`, `area util` $\times$ `price`
-
 
 <br>
 <br>
 <img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_linear_regressions.png?raw=true" width="640">
+
+<br>
+
+The following interactions were selected and added in the regression model with significant coefficients: 
+
+`area util` $\times$ `quartos`, `area util` $\times$ `quartos`, `area util` $\times$ `categoria casas`, `area util` $\times$ `price`
 
 ## [ML Models Selection](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_select_ML_models.ipynb)
 - Apply and select from different Linear Models (only numeric fields are used for price estimation)
@@ -64,6 +66,8 @@ The following interactions were selected and added in the regression model with 
 <br>
 <br>
 <img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric.png?raw=true" width="640">
+
+The selected machine learning model presents a very significant gain, presenting an average of 7% (MAPE) error in price estimation compared to 22% for the best linear model. This is an error very close to that found in the literature [1][2].
 
 ## [RandomForest: numeric + Yolo](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_yolo.ipynb)
 - Apply RandomForestRegression, numeric fields and Yolo detected objects are used for price estimation
@@ -101,3 +105,10 @@ The following interactions were selected and added in the regression model with 
 | 15 |	**couch**	| 0.565151 |
 
 The use of Yolo objects detected in the images as predictors does not appear to bring any significant gain to price estimation compared to the model that uses only numerical predictors. Despite this, several detected objects show a significant gain in information, and among the 15 attributes with the highest gain, 7 objects are objects detected in the images. This suggests that this approach may be potentially useful, although it seems necessary detect more relevant objects to the real estate advertising scenario, in addition to those identified as standard by Yolo.
+
+# References
+
+[1] Marzagão, T., Ferreira, R., & Sales, L. (2021). A note on real estate appraisal in Brazil. Revista Brasileira de Economia, 75(1), 29-36.
+
+[2] Poursaeed, O., Matera, T., & Belongie, S. (2018). Vision-based real estate price estimation. Machine Vision and Applications, 29(4), 667-676.
+
