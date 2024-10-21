@@ -77,6 +77,10 @@ The following interactions were selected and added in the regression model with 
 | RF Num + Yolo (all)	| 0.98	| 95801.03	| 57979.46	| 30782.84	| **0.07** |
 
 <br>
+<br>
+<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric_yolo.png?raw=true" width="640">
+
+<br>
 
 | nr | Feature |	Mutual Information |
 |----|---------|---------------------|
@@ -97,9 +101,3 @@ The following interactions were selected and added in the regression model with 
 | 15 |	**couch**	| 0.565151 |
 
 The use of Yolo objects detected in the images as predictors does not appear to bring any significant gain to price estimation compared to the model that uses only numerical predictors. Despite this, several detected objects show a significant gain in information, and among the 15 attributes with the highest gain, 7 objects are objects detected in the images. This suggests that this approach may be potentially useful, although it seems necessary detect more relevant objects to the real estate advertising scenario, in addition to those identified as standard by Yolo.
-
-<br>
-<br>
-<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric_yolo.png?raw=true" width="640">
-
-
