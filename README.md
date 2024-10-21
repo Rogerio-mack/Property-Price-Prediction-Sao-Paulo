@@ -60,6 +60,27 @@
 |-------------------------|------|------------|-----------|-----------|------|
 | RF Num + Yolo (all)	| 0.98	| 95801.03	| 57979.46	| 30782.84	| **0.07** |
 
+<br>
+
+| nr | Feature |	Mutual Information |
+|----|---------|---------------------|
+| 1	 | condominio	| 1.082172 | 
+| 2	 | area_util	| 1.080046 | 
+| 3	 | tipo_Padrão| 	1.042260 | 
+| 4	 | **sink**	| 0.983158 | 
+| 5	 | banheiros	| 0.944558 | 
+| 6	 | quartos	| 0.902648 | 
+| 7	 | iptu	| 0.878083 | 
+| 8	 | vagas_na_garagem	| 0.835178 | 
+| 9  | location	| 0.815770 | 
+| 10 | 	**chair**	| 0.791374 | 
+| 11 |	**toilet** |	0.788386 |
+| 12 |	**potted plant** |	0.599620 |
+| 13 |	**bed**	| 0.576171 |
+| 14 |	**tv**	| 0.571253 |
+| 15 |	**couch**	| 0.565151 |
+
+The use of Yolo objects detected in the images as predictors does not appear to bring any significant gain to price estimation compared to the model that uses only numerical predictors. Despite this, several detected objects show a significant gain in information, and among the 15 attributes with the highest gain, 7 objects are objects detected in the images. This suggests that this approach may be potentially useful, although it seems necessary detect more relevant objects to the real estate advertising scenario, in addition to those identified as standard by Yolo.
 
 <br>
 <br>
