@@ -12,7 +12,7 @@
 - Data encodes (except text `title`)
 
 ## [Linear Regressions](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_linear_regression.ipynb)
-- Apply different Linear Models (only numeric fields are used for price estimation)
+- Apply different Linear Models, only numeric fields are used for price estimation 
   - Simple linear model
   - Log numeric (`price`, `area_util`) 
   - With Log numeric + iteracions
@@ -25,7 +25,7 @@
 
 <br>
 <br>
-<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_linear_regressions.png?raw=true" width="680">
+<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_linear_regressions.png?raw=true" width="640">
 
 ## [ML Models Selection](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_select_ML_models.ipynb)
 - Apply and select from different Linear Models (only numeric fields are used for price estimation)
@@ -39,9 +39,21 @@
 
 3 Best results are showed. Decision trees give MAPE = 0, but with large overffiting, thus was excluded here. Linear Regression regressions and their variants (Ridge Regression, HuberRegressor etc.) give better results than K-Nearest Neighbors, but ~0.30. They are also excluded here since a better result, ~0.22, was obtained berfore with linear regression with log transformation and iteractions. Random Forest was selected, despite a little small MAPE than Gradient Boosting because it shows better results (RMSE) in test data (here, results are over all data). 
 
-## [RandomForest: numeric + Yolo](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_yolo.ipynb)
-- Apply RandomForestRegression: numeric fields and Yolo detected objects are used for price estimation)
+## [RandomForest: numeric features](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric.ipynb)
+- Apply RandomForestRegression, only numeric fields are used for price estimation
 
+- **Best result**
+
+| Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
+|-------------------------|------|------------|-----------|-----------|------|
+| RF Numeric Fields (all) |	0.98 | 95300.42	| 57290.74 |	29912.10 |**0.07** |
+
+<br>
+<br>
+<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric.png?raw=true" width="640">
+
+## [RandomForest: numeric + Yolo](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_yolo.ipynb)
+- Apply RandomForestRegression, numeric fields and Yolo detected objects are used for price estimation
 - **Best result**
 
 | Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
@@ -49,5 +61,8 @@
 | RF Num + Yolo (all)	| 0.98	| 95801.03	| 57979.46	| 30782.84	| **0.07** |
 
 
+<br>
+<br>
+<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric_yolo.png?raw=true" width="640">
 
 
