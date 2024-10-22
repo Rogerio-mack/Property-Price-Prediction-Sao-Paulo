@@ -104,7 +104,7 @@ The selected machine learning model presents a very significant gain, presenting
 | 14 |	**tv**	| 0.571253 |
 | 15 |	**couch**	| 0.565151 |
 
-The use of Yolo objects detected in the images as predictors does not appear to bring any significant gain to price estimation compared to the model that uses only numerical predictors. Despite this, several detected objects show a significant gain in information, and among the 15 attributes with the highest gain, 7 objects are objects detected in the images. This suggests that this approach may be potentially useful, although it seems necessary detect more relevant objects to the real estate advertising scenario, in addition to those identified as standard by Yolo.
+The add of Yolo detected objects in the images as predictors does not appear to bring any significant gain to price estimation compared to the model that uses only numerical predictors. Despite this, several detected objects show a significant gain in information, and among the 15 attributes with the highest gain, 7 objects are objects detected in the images. This suggests that this approach may be potentially useful, although it seems necessary detect more relevant objects to the real estate advertising scenario, in addition to those identified as standard by Yolo.
 
 ## [RandomForest: numeric + text](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_text.ipynb)
 - Apply RandomForestRegression, numeric fields and text used for price estimation
@@ -123,7 +123,38 @@ The use of Yolo objects detected in the images as predictors does not appear to 
 
 <br>
 To encode the text, a TF-IDF (TfidfVectorizer) encode was used, only individual words (unigrams) and a maximum of 1000 features. Despite the better result with respect to the use of only numerical features, the difference is quite small and does not seem significant enough, but it suggests that encoding with a greater number of n-grams or other encoding methods (perhaps the use of LLMs) can lead to even better results.
- 
+
+## [RandomForest: numeric + text + yolo](https://colab.research.google.com/github/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/imoveis_ML_best_model_numeric_text_yolo.ipynb)
+- Apply RandomForestRegression, numeric fields, text and Yolo detected objects used for price estimation
+
+<br>
+
+- **Best result**
+
+| Model                   | R2	 | RMSE	      | MAE	      | MedAE	    | MAPE |
+|-------------------------|------|------------|-----------|-----------|------|
+| RF Num+text+Yolo (all)	| 0.98 |	92842.89 |	55535.63 |	29494.47 | **0.06** |
+
+<br>
+<br>
+<img src="https://github.com/Rogerio-mack/Property-Price-Prediction-Sao-Paulo/blob/main/figures/imoveis_results_ML_numeric_text_yolo.png?raw=true" width="640">
+
+<br>
+Here all data is used, numeric, text field and Yolo detected objects images as predictors.  Although it presents better results than using only numerical predictors, the result has little difference in relation to models that add text or objects detected in the images.
+
+# Conclusion
+As a conclusion this work shows the follow:
+1. Machine Learning models can give much better results than the best linear models, even with interactions and robust models
+2. Ensemble models, such as Random Forest and Gradient Boosting, give best results among many other Machine Learning Models
+3. The addition of objects detected from images and text did not bring a significant difference in relation to the use of only numerical predictors, but the difference between the models is less than 2% in relation to the average RMSE of the models (only ML) and the lowest RMSE is obtained using all features, which shows the viability of the approach of objects detected from images and text as predictors, being necessary for better results the detection of more relevant objects in the images and a more improved encoding of the text feature (such as the use of n-grams > 1).
+
+| Model |	RMSE % |
+|-------------------------|------|
+|	RF Numeric Fields (all)	|1.12	|
+|	RF Num + Yolo (all)	|1.65	|
+|	RF Num + text (all)	|-1.28	|
+|	**RF Num+text+Yolo (all)** | **-1.49** |
+
 # References
 
 [1] Marzagão, T., Ferreira, R., & Sales, L. (2021). A note on real estate appraisal in Brazil. Revista Brasileira de Economia, 75(1), 29-36.
