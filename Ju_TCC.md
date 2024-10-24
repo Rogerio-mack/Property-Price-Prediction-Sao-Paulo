@@ -57,7 +57,7 @@ Os coeficientes desses modelos são obtidos, em geral, por algum método numéri
 
 ### Premissas dos Modelos de Regressão Linear e Coeficiente de Determinação
 
-- Discutir brevemente homocedasticidadee R2
+- Discutir brevemente homocedasticidade e R2
 
 - Na prática, em muitos casos, adotam-se modelos lineares sem haver uma concordância plena desses requisitos.
 
@@ -114,12 +114,11 @@ Detalhes sobre cada um desses modelos pode ser encontrado em [referência]. Rand
 
 ### Avaliação dos Modelos: Conjuntos de Treinamento e Teste, *Cross Validation*
 
-- No contexto do aprendizado de máquina a seleção dos modelos, em geral, se faz por alguma métrica de erro das predições com relação aos valores reais observados, $y - y{pred}$. Isso pode ser feito separando-se uma parte do conjunto de dados para teste... e as métricas mais empregadas são R2, RMSE, MAE, MedAE, MAPE (ver referência, para definição e maiores detalhes dessas métricas).
+- No contexto do aprendizado de máquina a seleção dos modelos, em geral, se faz por alguma métrica de erro das predições com relação aos valores reais observados, $y - y{pred}$. Isso pode ser feito separando-se uma parte do conjunto de dados para teste... e as métricas mais empregadas são R2, RMSE, MAE, MedAE, MAPE (ver [referência], para definição e maiores detalhes dessas métricas).
 
-- \<explicar conjuntos de treinamento, teste e cross validation\>, incluir ao menos 1 referência
+- \<explicar conjuntos de treinamento, teste, validação e cross validation\>, incluir ao menos 1 referência
 
-- Importante destacar que os modelos lineares, e estatísticos em geral, são avaliados mais comumente sobre todo conjunto de dados, pois assume-se *apriori* que o dado se ajusta ao modelo e o erro, medido sobre todo o conjunto de dados representa o ajuste do modelo. No contexto do aprendizado de máquina, por outro lado, diferentes modelos são selecionados a partir do menor erro médio sobre as partições do conjunto de treinamento, que representa o ajuste dos dados ao modelo. Selecionado o melhor modelo, o erro sobre o conjunto de teste      
-
+- Importante destacar que os modelos lineares, e estatísticos em geral, são avaliados mais comumente sobre todo conjunto de dados, pois assume-se *apriori* que o dado se ajusta ao modelo e o erro, medido sobre todo o conjunto de dados representa o ajuste do modelo. No contexto do aprendizado de máquina, por outro lado, diferentes modelos são selecionados a partir do menor erro médio sobre as partições do conjunto de treinamento, que representa o ajuste dos dados ao modelo. Selecionado o melhor modelo, o erro sobre o conjunto de teste, permite avaliar a *generalização* do modelo, e a ausência de sobreajuste (ver [referência]). Assim, diferentes métricas de erro podem ser obtidas, seja sobre o conjunto total dos dados, sobre os dados de validação ou sobre os dados de teste. 
 
 
 
