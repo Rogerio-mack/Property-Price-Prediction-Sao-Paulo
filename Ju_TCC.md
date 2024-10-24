@@ -118,266 +118,58 @@ Detalhes sobre cada um desses modelos pode ser encontrado em [referência]. Rand
 
 - \<explicar conjuntos de treinamento, teste, validação e cross validation\>, incluir ao menos 1 referência
 
-- Importante destacar que os modelos lineares, e estatísticos em geral, são avaliados mais comumente sobre todo conjunto de dados, pois assume-se *apriori* que o dado se ajusta ao modelo e o erro, medido sobre todo o conjunto de dados representa o ajuste do modelo. No contexto do aprendizado de máquina, por outro lado, diferentes modelos são selecionados a partir do menor erro médio sobre as partições do conjunto de treinamento, que representa o ajuste dos dados ao modelo. Selecionado o melhor modelo, o erro sobre o conjunto de teste, permite avaliar a *generalização* do modelo, e a ausência de sobreajuste (ver [referência]). Assim, diferentes métricas de erro podem ser obtidas, seja sobre o conjunto total dos dados, sobre os dados de validação ou sobre os dados de teste. 
-
-
-
-Dentre os diferentes modelos de aprendizado de máquina destacam os modelos *ensemble models*, que são \< definir, explicar, aprendizado híbrido \>. Esses modelos apresentam em geral um desempenho melhor que modelos mais simples. Neste estudo, optou-se pelo uso do modelo XGBOOST, por sua... (referências). 
+- Importante destacar que os modelos lineares, e estatísticos em geral, são avaliados mais comumente sobre todo conjunto de dados, pois assume-se *apriori* que o dado se ajusta ao modelo e o erro, medido sobre todo o conjunto de dados representa o ajuste do modelo. No contexto do aprendizado de máquina, por outro lado, diferentes modelos são selecionados a partir do menor erro médio sobre as partições do conjunto de treinamento, que representa o ajuste dos dados ao modelo. Selecionado o melhor modelo, o erro sobre o conjunto de teste, permite avaliar a *generalização* do modelo, e a ausência de sobreajuste (ver [referência]). Assim, diferentes métricas de erro podem ser obtidas, seja sobre o conjunto total dos dados, sobre os dados de validação ou sobre os dados de teste. Aqui, sendo de interesse o modelo que melhor se ajusta aos dados e por concisão, são apresentadas as métricas de erro sobre todo o conjunto de dados. Todas as métricas, sobre dados de teste e de validação, entretanto, podem ser consultadas em detalhe em [referência do GitHub do projeto], e foram consideradas ao longo da análise para a seleção de modelos sem sobreajuste (por exemplo, o modelo de Árvore de Decisão, embora apresente o menor erro de treinamento, é sobreajustado, e é descartado nos resultados aqui). 
 
 # Metodologia
 
-Descrevemos a seguir... 
+## Dados
 
-## Pré-processamento dos Dados
+- Descrição sumária dos dados... por que esses dados, compatível em quantidade com outros trabalhos, etc.
 
-Um único dataset de receitas:
+## *Scraping*, coleta dos dados
 
-| categoria 			| 1     | 2     | 3     | ... | 35   | 36   | 
-|----------------------------------|------|------|------|------|------|------|	
-| brinquedos 			| 200 | 100 | 50   | ... | 50   | 150 |
-| escritório			| 200 | 100 | 50   | ... | 50   | 150 |
-| ...  			| ...| ...| ...   | ... | ...   | ... |
-| total   			| 200 | 100 | 50   | ... | 50   | 150 |
+- Discuta os pontos principais, os desafios, por que não outros sites, pode incluir o número aproximado de horas... Não fornecer o código, apenas um pseudo, ou esquemático.
 
-> Os dados estão muito, muito, desorganizados. Não faz sentido ter tantos arquivos quando, o que você precisa é uma tabela como essa.
-> Crie uma tabela no mesmo formato para os produtos x preços e outra para produtos x receita. Essa acima, é a consolidação das duas mais a tabela de categoria dos produtos.
+## Yolo, Detecção dos Objetos nas Imagens
 
-> Comente e justifique: exclusões, tratamento de dados nulos ou ‘zerados’, desafio. NÃO PARECE FAZER SENTIDO, TRATANDO-SE DE RECEITA AGREGADA, EXCLUIR PRODUTOS E SÓ FICAR COM OS 10 MAIS VENDIDOS.
+- Explicar, incluir o código no GitHub
 
-## Análise Exploratória dos Dados
+## **DAQUI EM DIANTE É MAIS OU MENOS O QUE ESTÁ NO README DO GITHUB...**
 
-Gráfico de receita total ao longo do tempo
-Gráfico de algumas categorias 
-> Comente: sazonalidade, variações, maiores e menores, padrões de comportamento mensal, desafio de fazer as previsões etc.
+## Pre process... 
+- Isso tem lá no GitHub, mas vamos suprimir... apenas comente na Seção seguinte. A ideia é preservar o anonimato do site.
 
-Para cada série aplique a o teste adfuller sobre estacionariedade
+Anonymize data (extract URL information)
 
-| categoria 			| estacionariedade   | p-value | 
-|----------------------------------|---------------------------|-----------|	
-| brinquedos 			| estacionária | 0.01 |
-| escritório			| estacionária | 0.04 |
-| ...   			| ... | ... |
-| total   			| estacionária | 0.05 |
+Rename files field names
 
-> Comente
-
-### ACF (Função de Autocorrelação) 
-É utilizada para identificar a presença de sazonalidade em uma série temporal.
-Gráfico das 15 categorias+total, 
-
-| categoria 			| sazonalidade  |   
-|----------------------------------|---------------------------| 	
-| brinquedos 			| 12  |  
-| escritório			| 12 |  
-| limpeza			|  0  |  
-| ...   			| ... | 
-| total   			| 12 |  
-
-0 = produtos de ano inteiro
-
-> Comente
- 
-### PACF (Função de Autocorrelação Parcial) 
-É empregada para identificar a ordem do componente autoregressivo (p) em um modelo ARIMA.
-Gráfico das 15 categorias+total
-
-| categoria 			| sazonalidade  |   
-|----------------------------------|---------------------------| 	
-| brinquedos 			| 1  |  
-| escritório			| 2 |  
-| limpeza			| 1 |  
-| ... | ... |
-| total   			| 3 |  
-
-> Comente
-
-### Métricas 
-
-A seleção dos modelos estatísticos emprega a métrica AIC (referência), tradicional para seleção do melhor ajuste de modelos estatísticos e implementada pode padrão no pmdarima. Para avaliação dos resultados são empregadas as métricas de erro RMSE ( ), MAE ( ), MAPE ( ) e MedAE (Median Absolute error). O RMSE é empregado para comparar os modelos. As demais métricas são empregadas ao final para o entendimento do erro das previsões.
-
-### Rolling Window
-
-Utiliza-se aqui uma janela deslizante (rolling window) para dividir seus dados em conjuntos de treinamento e teste. Emprega-se a receita total para estimar o uso de previsões com base em 30 ou 36 meses. Busca-se empregar a maior quantidade de dados (36 meses), mas essa, pela limitação dos dados disponíveis, não permite a previsão de 12 meses.
-
-Execuções pmdarima sobre receita total
-```
-  pmdarima 30 -> 1 (x 12 execuções) -> média AIC, média RMSE 
-  pmdarima 36 -> 1 (x 6 execuções) -> média AIC, média RMSE
-```
-
-Mostrar a diferença, mas apesar do erro, vamos empregar 30 -> 1
-
-### Pmdarima, SARIMA
-
-O pmdarima otimiza somente os parâmetros A(p, q, d). Para os parâmetros S(p, q, d) emprega-se os valores obtidos de... (veja a analise que fez antes do ACF, espera-se empregar 0, aí é sazonal False, ou 12, com sazonal True).      Os valores A(p, q, d) são otimizados então entre... (ver os valores que emprega... padrão?, o PACF pode dar uma dica melhor e você pode empregar menos valores)
-
-Pode justificar isso?
-error_action='ignore',  # Ignora erros em combinações inválidas
-suppress_warnings=True  # Suprime avisos
-
-Execuções pmdarima sobre receita total e categorias
-```
-  Para cada categoria (inclui a total):
-  	pmdarima 30 -> 1 (x 12 execuções) -> melhor modelo A(p,q,d) S(p,q,d)
-```
-
-Modelo escolhido, isso é mostrado nos resultados.  
-Empregar A(p,q,d) S(p,q,d) 
-
-| categoria 			| modelo  |   freq. |
-|----------------------------------|---------------------------|------| 	
-| brinquedos 			| A(1,1,0) S(0,12,0)  |  12 |
-| escritório			| A(1,2,1) S(0,12,0) |  7 |
-| limpeza			| A(1,2,1) S(0,0,0) |  9 |
-| ...| ... |...|
-| total   			| A(1,2,0) S(0,0,0) |  8 | 
-
-> Comente
-Salve em um dicionário ou em um dataframe, parm_SARIMA[‘categoria’] -> A(1,2,0) S(0,0,0)
-
-> Comente
-Salve em um dicionário ou em um dataframe, parm_SARIMA[‘categoria’] -> A(1,2,0) S(0,0,0)
-
-Execuções SARIMA (não é o pmdarima, ou se é o modelo é fixo) sobre receita total e categorias
-Para cada categoria (inclui a total):
-	SARIMA ou pdmaria com parm_SARIMA[‘categoria’]: 30 -> 1 (x 12 execuções) -> RMSE
-	SARIMA ou pdmaria com parm_SARIMA[‘categoria’]: 30 -> 1 (x 9 execuções) -> RMSE
-
-Resultados, isso é mostrado nos resultados.  
-
-SARIMA -> 1m
-
-| categoria 			| 1  | 2 | ... | 12 | Média |  
-|-----------------|-----|----|-----|-----|-----------| 
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse | 
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
-
-SARIMA -> 3m
-
-| categoria 			| 1  | 2 | ... | 9 | Média |  
-|-----------------|-----|----|-----|-----|-----------|
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse |  
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
-
-
-### XGBOOST
-
-Para a construção das lags (os valores defasados), empregam-se 12 valores passados com base na sazonalidade da maior parte dos produtos (recomendo avaliar com 6 também). Os mesmos procedimentos e previsões empregados nos modelos SARIMA são então aplicados. Outros parâmetros do XGBOOST? Verifique se não tem melhores resultados com 200, 500 ou 1000 estimadores.
-
-Execuções XGBOOST sobre receita total e categorias
-Para cada categoria (inclui a total):
-	XGBOOST: 30 -> 1 (x 12 execuções) -> RMSE
-
-Resultados, isso é mostrado nos resultados.  
-
-XGBOOST -> 1m
-
-| categoria 			| 1  | 2 | ... | 12 | Média |  
-|-----------------|-----|----|-----|-----|-----------| 
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse | 
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
-
-XGBOOST -> 3m
-
-| categoria 			| 1  | 2 | ... | 9 | Média |  
-|-----------------|-----|----|-----|-----|-----------|
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse |  
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
-
-
-### Escolha dos melhores modelos
-
-Os dados do RMSE dos modelos são então empregados para seleção dos melhores modelos para previsões de 1 ou 3 meses. 
-
-### Diagrama
-
-Para concluir, crie um diagrama com todo o fluxo e fases dessa metodologia.
+## Preparação dos Dados
 
 # Resultados
 
-Bla bla bla..
+## Análise Exploratória do Dados
 
-**SARIMA**
-SARIMA -> 1m
+- Isso não tem no readme, mas estão nos notebooks alguns highlights importantes
 
-| categoria 			| 1  | 2 | ... | 12 | Média |  
-|-----------------|-----|----|-----|-----|-----------| 
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse | 
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
+## Modelos de Regressão Linear 
 
-SARIMA -> 3m
+## Seleção dos Modelos de Aprendizado de Máquina 
 
-| categoria 			| 1  | 2 | ... | 9 | Média |  
-|-----------------|-----|----|-----|-----|-----------|
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse |  
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
+## Aplicação dos Modelos de Aprendizado: dados numéricos, texto e imagem
 
+### Dados numéricos
 
-> Comente 
+### Dados numéricos e vetor de objetos das imagens
 
-**XGBOOST**
-XGBOOST -> 1m
+### Dados numéricos e texto descritivo dos anúncios 
 
-| categoria 			| 1  | 2 | ... | 12 | Média |  
-|-----------------|-----|----|-----|-----|-----------| 
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse | 
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
+### Dados numéricos, texto descritivo dos anúncios e vetor de objetos das imagens
 
-XGBOOST -> 3m
+# Conclusão
 
-| categoria 			| 1  | 2 | ... | 9 | Média |  
-|-----------------|-----|----|-----|-----|-----------|
-| brinquedos 			|rmse|rmse| ... |  rmse | rmse | 
-| escritório			| rmse  | rmse  | ... |  rmse | rmse |  
-| limpeza			| rmse  | rmse  | ... |  rmse | rmse |  
-|||| ... ||| 
-| total   			| rmse  | rmse  | ... |  rmse | rmse |  
+...
 
-## Melhores Modelos 
-
-|                         |   SARIMA   | SARIMA |  XGBOOST |  XGBOOST |   |
-|-|-|-| - |-|-|
-| categoria 			| **1m**  |  **3m** | **1m**  |  **3m** |  Melhor |
-|-|-|-| - |-|-|
-| brinquedos 			| **rmse**  | **rmse**  |  rmse | rmse | **SARIMA** |
-| escritório			| **rmse**  | **rmse**  |  rmse | rmse | **SARIMA** |
-| limpeza		|  rmse | rmse |   **rmse**  | **rmse** | **XGBOOST** |
-|-|-|-| - |-|-|
-| total   			| **rmse**  | **rmse**  |  rmse | rmse | **SARIMA** |
-
-## Visualização dos Resultados
-
-Somente para os melhores modelos 3 meses de forecast, incluir nos gráficos as outras métricas.
-
-> Comentar,
-Que categorias apresentam bons modelos  
-Que categorias apresentam maus modelos, por que?
-Discuta as métricas dos resultados, MAPE, MAE, MedAE (qual a implicação prática, é o % de erro ou erro médio).
-
-# Conclusão 
-Aplicabilidade, importância
-Trabalhos futuros: análises complementares como a análise de erros dos modelos, aplicação de outros modelos de ML como modelos de redes neurais e transformers.
+Uma nota sobre a disponibilidade dos dados (Kaggle, DOI) e fontes (GitHub, organização), incluindo aqui os links, incluindo também nas referências.
 
 # Referências
 
